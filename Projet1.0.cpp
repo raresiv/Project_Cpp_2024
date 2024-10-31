@@ -6,7 +6,69 @@
 int main()
 {
     std::cout << "Hello World!\n";
-    std::cout <<"grselqgrkhuis";
+
+    // PARTIE 1 TEST 
+    // TEST CALLOPTION
+    double maturity = 1.0;            
+    double strikePrice = 100.0;      
+    double spotPriceAtMaturity = 105.0;
+    
+    // Création de l'option avec la maturité d'abord, puis le strike
+    CallOption callOption(maturity, strikePrice);
+    
+    double payoff = callOption.payoff(spotPriceAtMaturity);
+    std::cout << "Le payoff de l'option Call est : " << payoff << std::endl;
+    
+    // Vérification pour afficher un message de succès ou d'erreur
+    if (payoff == std::max(spotPriceAtMaturity - strikePrice, 0.0)) {
+        std::cout << "Le calcul du payoff est correct." << std::endl;
+    }
+    else {
+        std::cout << "Erreur dans le calcul du payoff." << std::endl;
+    }
+    
+    
+    // TEST PUTOPTION
+    double expiry = 1.0;          // Maturité (en années)
+    double strike = 100.0;        // Prix d'exercice
+    double spotPrice1 = 95.0;     // Prix du sous-jacent < strike
+    double spotPrice2 = 105.0;    // Prix du sous-jacent > strike
+    
+    // Création de l'option Put
+    PutOption putOption(expiry, strike);
+    
+    // Test du payoff pour un prix du sous-jacent inférieur au strike
+    double payoff1 = putOption.payoff(spotPrice1);
+    std::cout << "Payoff pour spotPrice = 95 : " << payoff1 << " (attendu : 5)" << std::endl;
+    
+    // Test du payoff pour un prix du sous-jacent supérieur au strike
+    double payoff2 = putOption.payoff(spotPrice2);
+    std::cout << "Payoff pour spotPrice = 105 : " << payoff2 << " (attendu : 0)" << std::endl;
+    
+    // TEST BLACKSCHOLES PRICER
+    
+    // Paramètres pour l'option et le modèle Black-Scholes
+    double testExpiry = 1.0;           // Maturité (en années)
+    double testStrike = 100.0;         // Prix d'exercice
+    double assetPrice = 100.0;       // Prix de l'actif sous-jacent
+    double interestRate = 0.05;      // Taux sans risque (5%)
+    double volatility = 0.2;         // Volatilité (20%)
+    
+    // Création d'une option Call avec un nom unique pour éviter les redéfinitions
+    CallOption testCallOption(expiry, strike);
+    
+    // Initialisation de BlackScholesPricer avec un pointeur vers l'option
+    BlackScholesPricer pricer(&testCallOption, assetPrice, interestRate, volatility);
+    
+    // Calcul du prix de l'option avec le paramètre requis par operator()
+    double optionPrice = pricer(pricer);
+    std::cout << "Prix de l'option Call avec Black-Scholes : " << optionPrice << " (valeur attendue : environ 10.45)" << std::endl;
+    
+    // Calcul du Delta de l'option
+    double delta = pricer.delta();
+    std::cout << "Delta de l'option Call : " << delta << " (valeur attendue : environ 0.6368)" << std::endl;
+    
+    return 0;
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
