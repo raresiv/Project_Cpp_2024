@@ -67,7 +67,6 @@ int main()
     // Calcul du Delta de l'option
     double delta = pricer.delta();
     std::cout << "Delta de l'option Call : " << delta << " (valeur attendue : environ 0.6368)" << std::endl;
-    std::cout << "TEST";
     
     return 0;
 }
