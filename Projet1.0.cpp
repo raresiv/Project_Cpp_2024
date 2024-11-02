@@ -3,6 +3,13 @@
 
 #include <iostream>
 
+#include "Option.h"
+#include "CallOption.h"
+#include "PutOption.h"
+#include "BlackScholesPricer.h"
+#include "EuropeanVanillaOption.h"
+#include "optionType.h"
+
 int main()
 {
     std::cout << "Hello World!\n";
