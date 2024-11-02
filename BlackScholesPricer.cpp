@@ -1,9 +1,5 @@
 #include "BlackScholesPricer.h"
-
 #include <iostream>
-
-#include "BlackScholesPricer.h"
-
 
 double normalCDF(double x)
 {

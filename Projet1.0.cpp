@@ -9,12 +9,13 @@
 #include "BlackScholesPricer.h"
 #include "EuropeanVanillaOption.h"
 #include "optionType.h"
+#include "BinaryTree.h"
 
 int main()
 {
     std::cout << "Hello World!\n";
 
-    // PARTIE 1 TEST 
+    #pragma region PARTIE 1 TEST
     // TEST CALLOPTION
     double maturity = 1.0;            
     double strikePrice = 100.0;      
@@ -75,6 +76,30 @@ int main()
     double delta = pricer.delta();
     std::cout << "Delta de l'option Call : " << delta << " (valeur attendue : environ 0.6368)" << std::endl;
     
+    #pragma endregion
+
+    #pragma region PARTIE 2 TEST
+    // Crée un arbre binaire de profondeur 4
+    BinaryTree<int> arbre(4);
+
+    // Ajoute des valeurs dans l'arbre
+    arbre.setNode(0, 0, 10);
+    arbre.setNode(1, 0, 20);
+    arbre.setNode(1, 1, 30);
+    arbre.setNode(2, 0, 40);
+    arbre.setNode(2, 1, 50);
+    arbre.setNode(2, 2, 60);
+
+    // Affiche l'arbre
+    std::cout << "Affichage de l'arbre binaire :\n";
+    arbre.display();
+
+    // Récupère une valeur spécifique
+    int valeur = arbre.getNode(1, 1);
+    std::cout << "\nValeur au niveau 1, position 1 : " << valeur << std::endl;
+    #pragma endregion
+
+
     return 0;
 }
 
