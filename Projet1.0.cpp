@@ -15,6 +15,8 @@ int main()
 {
     std::cout << "Hello World!\n";
 
+    std::cout << "test eloi";
+
     #pragma region PARTIE 1 TEST
     // TEST CALLOPTION
     double maturity = 1.0;            
