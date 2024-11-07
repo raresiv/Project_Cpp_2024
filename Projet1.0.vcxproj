@@ -130,6 +130,7 @@
     <ClCompile Include="BinaryTree.cpp" />
     <ClCompile Include="BlackScholesPricer.cpp" />
     <ClCompile Include="CallOption.cpp" />
+    <ClCompile Include="CRRPricer.cpp" />
     <ClCompile Include="EuropeanVanillaOption.cpp" />
     <ClCompile Include="Option.cpp" />
     <ClCompile Include="optionType.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="BinaryTree.h" />
     <ClInclude Include="BlackScholesPricer.h" />
     <ClInclude Include="CallOption.h" />
+    <ClInclude Include="CRRPricer.h" />
     <ClInclude Include="EuropeanVanillaOption.h" />
     <ClInclude Include="Option.h" />
     <ClInclude Include="optionType.h" />
