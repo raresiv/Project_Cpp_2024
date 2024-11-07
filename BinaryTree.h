@@ -15,11 +15,11 @@ public:
 		resizeTree();
 	}
 
-	void setNode(int a, int b, T t) { // a est le niveau et b la 'profondeur'
+	void setNode(int x, int y, T t) { // a est le niveau et b la 'profondeur'
 		if (_tree.size() != 0) {
-			if (a >= 0 && a < _tree.size()) {
-				if (b >= 0 && b < _tree[a].size()) {
-					_tree[a][b] = t;
+			if (x >= 0 && x < _tree.size()) {
+				if (y >= 0 && y < _tree[x].size()) {
+					_tree[x][y] = t;
 				}
 			}
 			//mess d'erreur ?
