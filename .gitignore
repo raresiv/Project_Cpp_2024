@@ -361,3 +361,23 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Ignorer les fichiers objets (.o)
+*.o
+
+# Ignorer les fichiers exécutables générés
+projet_executable
+
+# Ignorer les fichiers temporaires de make
+Makefile.d
+Makefile.autogen
+
+# Ignorer les répertoires de build (si vous utilisez un répertoire spécifique pour les builds)
+build/
+out/
+
+Makefile
+
+Projet1.0.dSYM
+
+.DS_Store
