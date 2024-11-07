@@ -99,6 +99,8 @@ int main()
     std::cout << "\nValeur au niveau 1, position 1 : " << valeur << std::endl;
     #pragma endregion
 
+    cout << "samuel est la";
+
 
     return 0;
 }
