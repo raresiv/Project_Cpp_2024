@@ -1,4 +1,4 @@
-#include "CRRPricer.h"
+	#include "CRRPricer.h"
 
 
 CRRPricer::CRRPricer(Option* opt, int N, double S, double U, double D, double R) {
@@ -17,6 +17,11 @@ CRRPricer::CRRPricer(Option* opt, int N, double S, double U, double D, double R)
 	}
 }
 
+double CRRPricer::S(int i)
+{
+	asset_price* pow((1 + up), i)* pow(1 + down, depth - i);
+}
+
 BinaryTree<double> CRRPricer::tree_structure() {
 	BinaryTree<double> tree(depth);
 	tree.setNode(0, 0, asset_price);
@@ -28,7 +33,7 @@ void CRRPricer::Compute(){
 	BinaryTree<double> tree = tree_structure();
 	for (int i = 0; i < depth; i++) {
 		for (int j = 0; j < depth; j++) {
-			double current_price = asset_price * pow((1 + up), i) * pow(1 + down, depth - i);
+			double current_price = S(i);
 			double current_payoff = option->payoff(current_price);
 			tree.setNode(i, j, current_payoff);
 		}
@@ -53,3 +58,4 @@ double CRRPricer::get(int n, int i) {
 	
 	
 }
+

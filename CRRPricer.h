@@ -5,19 +5,21 @@
 
 class CRRPricer
 {
-private:
+private:	
 	Option* option;
 	int depth;
 	double asset_price;
 	double up;
 	double down;
 	double interest_rate;
+	double S(int);
 
 public:
 	CRRPricer(Option*, int, double, double, double, double);
 	BinaryTree<double> tree_structure();
 	void Compute();
 	double get(int, int);
+	double operator()(bool);
 
 };
 
