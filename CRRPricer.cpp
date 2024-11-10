@@ -59,3 +59,33 @@ double CRRPricer::get(int n, int i) {
 	
 }
 
+
+double CRRPricer::operator()(bool closed_form = false)
+{
+	double H = 0;
+	double h;
+	double a;
+	double b;
+	double q = (interest_rate - down) / (up - down);
+	if (closed_form)
+	{
+		for (int i = 0; i < depth; i++)
+		{
+			h = option->payoff(S(depth, i));
+			a = factorial(depth) / (factorial(i) * factorial(depth - i));
+			b = pow(q, i) * pow(1 - q, depth - i);
+			H = H + h * a * b;
+		}
+		H = H / (pow(1 + interest_rate, depth));
+	}
+
+//il faut utiliser le compute ici mais pas bien compris 
+
+	return H;
+}
+
+int CRRPricer::factorial(int n)
+{
+	if (n == 0) return 1;
+	return n * factorial(n - 1);
+}

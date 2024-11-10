@@ -20,6 +20,7 @@ public:
 	void Compute();
 	double get(int, int);
 	double operator()(bool);
+	int factorial(int);
 
 };
 
