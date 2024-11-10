@@ -19,7 +19,7 @@ CRRPricer::CRRPricer(Option* opt, int N, double S, double U, double D, double R)
 
 double CRRPricer::S(int i)
 {
-	asset_price* pow((1 + up), i)* pow(1 + down, depth - i);
+	return asset_price* pow((1 + up), i)* pow(1 + down, depth - i);
 }
 
 BinaryTree<double> CRRPricer::tree_structure() {
@@ -58,4 +58,6 @@ double CRRPricer::get(int n, int i) {
 	
 	
 }
+
+
 
