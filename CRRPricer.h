@@ -12,7 +12,7 @@ private:
 	double up;
 	double down;
 	double interest_rate;
-	double S(int);
+	double S(int,int);
 
 public:
 	CRRPricer(Option*, int, double, double, double, double);
