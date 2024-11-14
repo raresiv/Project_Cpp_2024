@@ -12,7 +12,7 @@ Option::Option(double exp) {
 	}
 };
 
-double Option::getExiry()
+double Option::getExpiry()
 {
 	return _expiry;
 }

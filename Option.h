@@ -10,7 +10,7 @@ protected:
 	double _expiry;
 
 public:
-	double getExiry();
+	double getExpiry();
 	virtual double payoff(double)const=0;
 	Option(double);
 
