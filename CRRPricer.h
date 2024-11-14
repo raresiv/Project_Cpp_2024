@@ -13,9 +13,11 @@ private:
 	double down;
 	double interest_rate;
 	double S(int,int);
+	BinaryTree<double> tree;
+
 
 public:
-	CRRPricer(Option*, int, double, double, double, double);
+	CRRPricer(Option*, int, double, double, double, double, BinaryTree<double>);
 	BinaryTree<double> tree_structure();
 	void Compute();
 	double get(int, int);

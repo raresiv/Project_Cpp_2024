@@ -381,3 +381,5 @@ Makefile
 Projet1.0.dSYM
 
 .DS_Store
+
+.vscode
