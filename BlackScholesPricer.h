@@ -16,7 +16,7 @@ public:
     BlackScholesPricer(EuropeanVanillaOption* opt, double a_p, double i_r, double vol) : 
         option(opt), asset_price(a_p), interest_rate(i_r), volatility(vol) {}
 
-    double operator()(const class BlackScholesPricer);
+    double operator()();
 
     double delta();
 
