@@ -1,6 +1,7 @@
 	#include "CRRPricer.h"
 
 
+
 // Constructeur avec valeur par défaut pour arbre
 CRRPricer::CRRPricer(Option* opt, int N, double S, double U, double D, double R)
 	: option(opt), depth(N), asset_price(S), up(U), down(D), interest_rate(R) {
@@ -9,6 +10,7 @@ CRRPricer::CRRPricer(Option* opt, int N, double S, double U, double D, double R)
 
 	if (D < R && R < U) {
 		std::cout << "NO ARBITRAGE";
+
 	}
 	else {
 		std::cout << "BE CAREFUL ARBITRAGE";
@@ -19,6 +21,7 @@ double CRRPricer::S(int n,int i)
 {
 	return asset_price* pow((1 + up), i)* pow(1 + down, n - i);
 }
+
 
 
 
@@ -122,5 +125,6 @@ double CRRPricer::operator()(bool closed_form)
 //	}
 //	
 //}
+
 
 

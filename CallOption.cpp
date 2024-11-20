@@ -17,3 +17,4 @@ optionType CallOption::GetOptionType() const
 {
 	return optionType::Call;
 }
+

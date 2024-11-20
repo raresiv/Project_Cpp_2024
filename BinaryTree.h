@@ -60,7 +60,7 @@ public:
 	//		for (int i = 0; i < _depth; i++) {
 	//			// Imprime l'espacement initial pour centrer les niveaux
 	//			for (int j = 0; j < (_depth - i - 1); j++) {
-	//				std::cout << "   "; // Espacement à gauche
+	//				std::cout << "   "; // Espacement ï¿½ gauche
 	//			}
 
 	//			// Imprime les valeurs dans le niveau actuel
@@ -74,7 +74,7 @@ public:
 	//			if (i < _depth - 1) {
 	//				for (int j = 0; j < (_depth - i-1); j++) {
 	//					std::cout << "   ";
-	//					// Espacement à gauche
+	//					// Espacement ï¿½ gauche
 	//				}
 	//				for (int j = 0; j < _tree[i].size(); j++) {
 	//					std::cout << "/ \\  "; // Affiche les branches
