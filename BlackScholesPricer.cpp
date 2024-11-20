@@ -6,7 +6,7 @@ double normalCDF(double x)
     return std::erfc(-x / std::sqrt(2)) / 2;
 }
 
-double BlackScholesPricer::operator()(const BlackScholesPricer) 
+double BlackScholesPricer::operator()() 
 {
     double a, b, c,d1,d2;
     d1 = (log(asset_price / option->_strike) + ((interest_rate + pow(volatility, 2) / 2) * option->_expiry)) / (volatility * sqrt(option->_expiry));

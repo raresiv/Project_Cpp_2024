@@ -7,6 +7,10 @@ template <typename T>
 class BinaryTree
 {
 public:
+	BinaryTree() : _depth(0) {
+
+	}
+
 	BinaryTree(int d) : _depth(d) {
 		resizeTree();
 	}

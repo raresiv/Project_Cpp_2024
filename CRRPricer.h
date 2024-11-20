@@ -12,17 +12,20 @@ private:
 	double up;
 	double down;
 	double interest_rate;
-	double S(int,int);
 	BinaryTree<double> tree;
+	
+
+	double S(int, int);
+
 
 
 public:
-	CRRPricer(Option*, int, double, double, double, double, BinaryTree<double>);
-	BinaryTree<double> tree_structure();
+	CRRPricer(Option*, int, double, double, double, double);
 	void Compute();
 	double get(int, int);
-	double operator()(bool);
-	int factorial(int);
+	void set(int, int, double);
+	double operator()(bool=false);
+	double factorial(double);
 
 };
 
