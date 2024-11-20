@@ -10,7 +10,7 @@ double BlackScholesPricer::operator()()
 {
     double a, b, c,d1,d2;
     d1 = (log(asset_price / option->_strike) + ((interest_rate + pow(volatility, 2) / 2) * option->_expiry)) / (volatility * sqrt(option->_expiry));
-    d2 = d1- (volatility * sqrt(option->_expiry));
+    d2 = d1 - (volatility * sqrt(option->_expiry));
     a = asset_price * normalCDF(d1);
     b = option->_strike * exp(-interest_rate * option->_expiry) * normalCDF(d2);
     c = a - b;

@@ -107,7 +107,6 @@ int main()
     std::cout << "\nValeur au niveau 1, position 1 : " << valeur << std::endl;
     #pragma endregion
 
-
     #pragma region Partie VRAI TEST 1
     {
 
@@ -180,43 +179,6 @@ int main()
         std::cout << std::endl << "*********************************************************" << std::endl;
     }
 
-    //{
-
-    //    double S0(95.), K(100.), T(0.5), r(0.02), sigma(0.2);
-    //    EuropeanDigitalCallOption opt1(T, K);
-    //    EuropeanDigitalPutOption opt2(T, K);
-
-
-    //    std::cout << "European options 2" << std::endl << std::endl;
-
-    //    /*{
-    //        BlackScholesPricer pricer1(&opt1, S0, r, sigma);
-    //        std::cout << "BlackScholesPricer price=" << pricer1() << ", delta=" << pricer1.delta() << std::endl;
-
-    //        BlackScholesPricer pricer2(&opt2, S0, r, sigma);
-    //        std::cout << "BlackScholesPricer price=" << pricer2() << ", delta=" << pricer2.delta() << std::endl;
-    //        std::cout << std::endl;
-
-    //        int N(150);
-    //        double U = exp(sigma * sqrt(T / N)) - 1.0;
-    //        double D = exp(-sigma * sqrt(T / N)) - 1.0;
-    //        double R = exp(r * T / N) - 1.0;
-
-    //        CRRPricer crr_pricer1(&opt1, N, S0, U, D, R);
-    //        std::cout << "Calling CRR pricer with depth=" << N << std::endl;
-    //        std::cout << std::endl;
-    //        std::cout << "CRR pricer computed price=" << crr_pricer1() << std::endl;
-    //        std::cout << "CRR pricer explicit formula price=" << crr_pricer1(true) << std::endl;
-    //        std::cout << std::endl;
-
-    //        CRRPricer crr_pricer2(&opt2, N, S0, U, D, R);
-    //        std::cout << "Calling CRR pricer with depth=" << N << std::endl;
-    //        std::cout << std::endl;
-    //        std::cout << "CRR pricer computed price=" << crr_pricer2() << std::endl;
-    //        std::cout << "CRR pricer explicit formula price=" << crr_pricer2(true) << std::endl;
-    //    }*/
-    //    std::cout << std::endl << "*********************************************************" << std::endl;
-    //}
     #pragma endregion
 
     #pragma region Test Partie 3
