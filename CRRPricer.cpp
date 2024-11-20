@@ -15,6 +15,9 @@ CRRPricer::CRRPricer(Option* opt, int N, double S, double U, double D, double R)
 	else {
 		std::cout << "BE CAREFUL ARBITRAGE";
 	}
+	if (opt->isAsianOption() == true) {
+		throw std::runtime_error("Asian options are not supported in CRRPricer.");
+	}
 }
 
 double CRRPricer::S(int n,int i)

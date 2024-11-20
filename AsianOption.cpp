@@ -1,7 +1,8 @@
 #include "AsianOption.h"
 
-AsianOption::AsianOption(double e,std::vector<double> t) : Option(e)
+AsianOption::AsianOption(double e,double s,std::vector<double> t) : Option(e)
 {
+	strike = s;
 	timesteps = t;
 }
 
@@ -20,4 +21,8 @@ double AsianOption::payoffPath(std::vector<double>path)
 std::vector<double> AsianOption::getTimeSteps()
 {
 	return timesteps;
+}
+
+bool AsianOption::isAsianOption() {
+	return true;
 }

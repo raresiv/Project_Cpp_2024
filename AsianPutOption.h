@@ -4,9 +4,9 @@ class AsianPutOption :
     public AsianOption
 {
 public : 
-		AsianPutOption(double, std::vector<double>);
+		AsianPutOption(double,double, std::vector<double>);
 		double payoff(double)const;
 		optionType GetOptionType()const;
-		double strike;
+		
 };	
 

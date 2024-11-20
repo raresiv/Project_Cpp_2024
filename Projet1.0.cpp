@@ -11,6 +11,9 @@
 #include "optionType.h"
 #include "BinaryTree.h"
 #include "CRRPricer.h"
+#include "AsianCallOption.h"
+#include "AsianPutOption.h"
+#include "AsianOption.h"
 
 int main()
 {
@@ -214,6 +217,34 @@ int main()
     //    }*/
     //    std::cout << std::endl << "*********************************************************" << std::endl;
     //}
+    #pragma endregion
+
+    #pragma region Test Partie 3
+    
+    std::vector<double> path1 = { 100,105,110,115 };//moy 107.5
+    std::vector<double> path2 = { 90,85,70,60 };//moy 76.25
+    double strikeAsian = 100;
+    double e = 1.0;
+    AsianCallOption callOptionA(e,strikeAsian, { 0.25, 0.5, 0.75, 1 });
+    AsianPutOption putOptionA(e,strikeAsian, { 0.25, 0.5, 0.75, 1 });
+    
+    // Calcul des payoffs pour chaque trajectoire 
+    double callPayoff1 = callOptionA.payoffPath(path1);
+    double callPayoff2 = callOptionA.payoffPath(path2);
+    double putPayoff1 = putOptionA.payoffPath(path1);
+    double putPayoff2 = putOptionA.payoffPath(path2); // Affichage des résultats 
+    std::cout << "Call Option Payoffs:\n"; 
+    std::cout << "Path 1: "<< callPayoff1 << "\n"; // Attendu : 7.5 
+    std::cout << "Path 2: "<< callPayoff2 << "\n"; // Attendu : 0 
+    std::cout << "\nPut Option Payoffs:\n"; 
+    std::cout << "Path 1: "<< putPayoff1 << "\n"; // Attendu : 0 
+    std::cout << "Path 2: "<< putPayoff2 << "\n"; // Attendu : 7.5 
+    // Test de l'obtention des timesteps 
+    std::cout << "\nTime steps for the options:\n"; 
+    for (double t : callOptionA.getTimeSteps())
+    { std::cout << t << " "; } 
+    std::cout << "\n"; for (double t : putOptionA.getTimeSteps())
+    { std::cout << t << " "; }
     #pragma endregion
     return 0;
 }

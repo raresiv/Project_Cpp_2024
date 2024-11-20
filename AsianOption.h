@@ -10,10 +10,14 @@ class AsianOption :
     public Option
 {
 private:
+	
     std::vector<double> timesteps;
+
 public:
+	bool isAsianOption() override;
 	std::vector<double> getTimeSteps();
-	AsianOption(double,std::vector<double>);
+	AsianOption(double,double,std::vector<double>);
 	double payoffPath(std::vector<double>path);
+	double strike;
 };
 
