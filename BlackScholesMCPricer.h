@@ -11,6 +11,6 @@ private:
 public:
 	BlackScholesMCPricer(Option* option, double initial_price, double initerest_rate, double volatility);
 	int getNbPaths();
-	void generate(int nb_paths)
+	void generate(int nb_paths);
 };
 
