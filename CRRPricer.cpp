@@ -34,19 +34,19 @@ void CRRPricer::Compute(){
 
 	//Initialisation du prix avec les payoffs à maturité
 	for (int j = 0; j <= depth; j++) {
-		double payoff = option->payoff(S(j, depth));	//Payoff à maturité au noeud i qui vaut j
-		tree.setNode(j, depth, payoff);	//On remplit l'arbre à maturité
+		double payoff = option->payoff(S(depth, j));	//Payoff à maturité au noeud i qui vaut j
+		tree.setNode(depth , j, payoff);	//On remplit l'arbre à maturité
 	}
 
 	double q = (interest_rate - down) / (up - down);
 
 	//Double Boucle remplissage arbre
-	for (int n = depth-1; n >= 0; n--) {
+	for (int n = depth; n >= 0; n--) {
 		for (int i = 0; i <= n; i++)	//les i vont de 0 à n spour chaque profondeur
 		{
 			
-			double price = (q * tree.getNode(i + 1, n) + (1 - q) * tree.getNode(i, n))/(1+interest_rate);	//Calcul du prix avec la profondeur supérieur
-			tree.setNode(i, n, price);	//On remplit la profondeur n pour chaque i
+			double price = (q * tree.getNode(n, i + 1) + (1 - q) * tree.getNode(n, i))/(1+interest_rate);	//Calcul du prix avec la profondeur supérieur
+			tree.setNode(n-1, i, price);	//On remplit la profondeur n pour chaque i
 		}
 	}
 		
@@ -106,6 +106,10 @@ double CRRPricer::operator()(bool closed_form)
 			H = H + h * a * b;
 		}
 		H = H / (pow(1 + interest_rate, depth));
+	}
+	else {
+		Compute();
+		H = tree.getNode(0, 0);
 	}
 
 //il faut utiliser le compute ici mais pas bien compris 

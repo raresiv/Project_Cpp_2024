@@ -21,7 +21,7 @@ public:
 
 	void setNode(int x, int y, T t) { // a est le niveau et b la 'profondeur'
 		if (_tree.size() != 0) {
-			if (x >= 0 && x < _tree.size()) {
+			if (x >= 0 && x <= _tree.size()) {
 				if (y >= 0 && y < _tree[x].size()) {
 					_tree[x][y] = t;
 				}
@@ -31,10 +31,10 @@ public:
 	}
 
 	T getNode(int a, int b) {//comme le fonction d'avant, a est le niveau et b la profondeur
-		T t;
+		T t{};
 		if (_depth != 0) {
-			if (a >= 0 && a < _depth) {
-				if (b > 0 && b < _tree[a].size()) {
+			if (a >= 0 && a <= _depth) {
+				if (b >= 0 && b < _tree[a].size()) {
 					t = _tree[a][b];
 				}
 			}
@@ -92,8 +92,8 @@ protected:
 	std::vector<std::vector<T>> _tree;
 
 	void resizeTree() {
-		_tree.resize(_depth);
-		for (int i = 0; i < _depth; ++i) {
+		_tree.resize(_depth+1);
+		for (int i = 0; i < _depth+1; ++i) {
 			_tree[i].resize(i + 1);
 		}
 	}
