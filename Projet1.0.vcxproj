@@ -151,6 +151,7 @@
     <ClInclude Include="EuropeanVanillaOption.h" />
     <ClInclude Include="Option.h" />
     <ClInclude Include="optionType.h" />
+    <ClInclude Include="PutOption.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
