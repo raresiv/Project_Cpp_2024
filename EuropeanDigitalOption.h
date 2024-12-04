@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include "Option.h"
+#include "optionType.h"
+
 class EuropeanDigitalOption :
     public Option
 {
