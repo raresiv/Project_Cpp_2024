@@ -46,16 +46,31 @@ double BlackScholesPricer::operator()()
         // Calcul des variables communes
         double d1 = (log(asset_price / vanillaOption->_strike) + ((interest_rate + pow(volatility, 2) / 2) * vanillaOption->_expiry)) / (volatility * sqrt(vanillaOption->_expiry));
         double d2 = d1 - (volatility * sqrt(vanillaOption->_expiry));
-        // Calcul pour une option vanille
-        double a = asset_price * normalCDF(d1);
-        double b = vanillaOption->_strike * exp(-interest_rate * vanillaOption->_expiry) * normalCDF(d2);
-        return a - b;
+        if((*vanillaOption).GetOptionType()==optionType::Call){
+            // Calcul pour une option call vanille
+            double a = asset_price * normalCDF(d1);
+            double b = vanillaOption->_strike * exp(-interest_rate * vanillaOption->_expiry) * normalCDF(d2);
+            return a - b;
+        }
+        if((*vanillaOption).GetOptionType()==optionType::Put){
+            // Calcul pour une option Put vanille
+            double a = asset_price * normalCDF(-d1);
+            double b = vanillaOption->_strike * exp(-interest_rate * vanillaOption->_expiry) * normalCDF(-d2);
+            return b - a;
+        }
     } 
     if (auto* digitalOption = dynamic_cast<EuropeanDigitalOption*>(option)) {
         // Calcul des variables communes
         double d1 = (log(asset_price / digitalOption->_strike) + ((interest_rate + pow(volatility, 2) / 2) * digitalOption->_expiry)) / (volatility * sqrt(digitalOption->_expiry));
         double d2 = d1 - (volatility * sqrt(digitalOption->_expiry));
-        // Calcul pour une option digitale
-        return exp(-interest_rate * digitalOption->_expiry) * normalCDF(d2);
+        if((*digitalOption).GetOptionType()==optionType::Call){
+            // Calcul pour une option call digitale
+            return exp(-interest_rate * digitalOption->_expiry) * normalCDF(d2);
+        }
+        if((*digitalOption).GetOptionType()==optionType::Put){
+            // Calcul pour une option put digitale
+            return exp(-interest_rate * digitalOption->_expiry) * normalCDF(-d2);
+        }
+        
     }
 }

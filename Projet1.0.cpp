@@ -19,6 +19,7 @@
 
 int main()
 {
+    /*
     std::cout << "Hello World!\n";
 
     std::cout << "test eloi";
@@ -232,6 +233,49 @@ int main()
         }
         std::cout << std::endl << "*********************************************************" << std::endl;
     }
+    #pragma endregion
+*/
+    #pragma region testExcel
+
+    // Paramètres pour l'option et le modèle Black-Scholes
+    double testExpiry = 5.0;           // Maturité (en années)
+    double testStrike = 101.0;         // Prix d'exercice
+    double assetPrice = 100.0;       // Prix de l'actif sous-jacent
+    double interestRate = 0.01;      // Taux sans risque (5%)
+    double volatility = 0.1;         // Volatilité (20%)
+
+    // Création d'une option Call avec un nom unique pour éviter les redéfinitions
+    CallOption testCallOption(testExpiry, testStrike);
+    
+    // Initialisation de BlackScholesPricer avec un pointeur vers l'option
+    BlackScholesPricer pricer1(&testCallOption, assetPrice, interestRate, volatility);
+    
+    // Calcul du prix de l'option avec le paramètre requis par operator()
+    double optionCall = pricer1();
+    std::cout << "Prix de l'option Call avec Black-Scholes : " << optionCall << std::endl;
+    
+    // Création d'une option Call avec un nom unique pour éviter les redéfinitions
+    PutOption testPutOption(testExpiry, testStrike);
+    
+    // Initialisation de BlackScholesPricer avec un pointeur vers l'option
+    BlackScholesPricer pricer2(&testPutOption, assetPrice, interestRate, volatility);
+    
+    // Calcul du prix de l'option avec le paramètre requis par operator()
+    double optionPut = pricer2();
+    std::cout << "Prix de l'option Put avec Black-Scholes : " << optionPut << std::endl;
+    
+    EuropeanDigitalCallOption opt1(testExpiry, testStrike);
+    EuropeanDigitalPutOption opt2(testExpiry, testStrike);
+
+
+    std::cout << "European options 2" << std::endl << std::endl;
+
+    BlackScholesPricer pricer3(&opt1, assetPrice, interestRate, volatility);
+    std::cout << "BlackScholesPricer digital call price=" << pricer3() << ", delta=" << pricer3.delta() << std::endl;
+
+    BlackScholesPricer pricer4(&opt2, assetPrice, interestRate, volatility);
+    std::cout << "BlackScholesPricer digital put price=" << pricer4() << ", delta=" << pricer4.delta() << std::endl;
+
     #pragma endregion
     return 0;
 }
