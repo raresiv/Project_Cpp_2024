@@ -14,9 +14,12 @@
 #include "AsianCallOption.h"
 #include "AsianPutOption.h"
 #include "AsianOption.h"
+#include "EuropeanDigitalCallOption.h"
+#include "EuropeanDigitalPutOption.h"
 
 int main()
 {
+    /*
     std::cout << "Hello World!\n";
 
     std::cout << "test eloi";
@@ -182,7 +185,7 @@ int main()
     #pragma endregion
 
     #pragma region Test Partie 3
-    
+    {
     std::vector<double> path1 = { 100,105,110,115 };//moy 107.5
     std::vector<double> path2 = { 90,85,70,60 };//moy 76.25
     double strikeAsian = 100;
@@ -207,6 +210,72 @@ int main()
     { std::cout << t << " "; } 
     std::cout << "\n"; for (double t : putOptionA.getTimeSteps())
     { std::cout << t << " "; }
+    }
+    #pragma endregion
+
+    #pragma region Test Partie salle 17
+    {
+        std::cout << std::endl << "*********************************************************" << std::endl;
+        double S0(95.), K(100.), T(0.5), r(0.02), sigma(0.2);
+        EuropeanDigitalCallOption opt1(T, K);
+        EuropeanDigitalPutOption opt2(T, K);
+
+
+        std::cout << "European options 2" << std::endl << std::endl;
+
+        {
+            BlackScholesPricer pricer1(&opt1, S0, r, sigma);
+            std::cout << "BlackScholesPricer price=" << pricer1() << ", delta=" << pricer1.delta() << std::endl;
+
+            BlackScholesPricer pricer2(&opt2, S0, r, sigma);
+            std::cout << "BlackScholesPricer price=" << pricer2() << ", delta=" << pricer2.delta() << std::endl;
+
+        }
+        std::cout << std::endl << "*********************************************************" << std::endl;
+    }
+    #pragma endregion
+*/
+    #pragma region testExcel
+
+    // Paramètres pour l'option et le modèle Black-Scholes
+    double testExpiry = 5.0;           // Maturité (en années)
+    double testStrike = 101.0;         // Prix d'exercice
+    double assetPrice = 100.0;       // Prix de l'actif sous-jacent
+    double interestRate = 0.01;      // Taux sans risque (5%)
+    double volatility = 0.1;         // Volatilité (20%)
+
+    // Création d'une option Call avec un nom unique pour éviter les redéfinitions
+    CallOption testCallOption(testExpiry, testStrike);
+    
+    // Initialisation de BlackScholesPricer avec un pointeur vers l'option
+    BlackScholesPricer pricer1(&testCallOption, assetPrice, interestRate, volatility);
+    
+    // Calcul du prix de l'option avec le paramètre requis par operator()
+    double optionCall = pricer1();
+    std::cout << "Prix de l'option Call avec Black-Scholes : " << optionCall << std::endl;
+    
+    // Création d'une option Call avec un nom unique pour éviter les redéfinitions
+    PutOption testPutOption(testExpiry, testStrike);
+    
+    // Initialisation de BlackScholesPricer avec un pointeur vers l'option
+    BlackScholesPricer pricer2(&testPutOption, assetPrice, interestRate, volatility);
+    
+    // Calcul du prix de l'option avec le paramètre requis par operator()
+    double optionPut = pricer2();
+    std::cout << "Prix de l'option Put avec Black-Scholes : " << optionPut << std::endl;
+    
+    EuropeanDigitalCallOption opt1(testExpiry, testStrike);
+    EuropeanDigitalPutOption opt2(testExpiry, testStrike);
+
+
+    std::cout << "European options 2" << std::endl << std::endl;
+
+    BlackScholesPricer pricer3(&opt1, assetPrice, interestRate, volatility);
+    std::cout << "BlackScholesPricer digital call price=" << pricer3() << ", delta=" << pricer3.delta() << std::endl;
+
+    BlackScholesPricer pricer4(&opt2, assetPrice, interestRate, volatility);
+    std::cout << "BlackScholesPricer digital put price=" << pricer4() << ", delta=" << pricer4.delta() << std::endl;
+
     #pragma endregion
     return 0;
 }
