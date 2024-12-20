@@ -21,6 +21,11 @@ bool Option::isAsianOption() {
 	return false;
 }
 
+
+bool Option::isAmericanOption() {
+    return false;
+}
+
 double Option::payoffPath(std::vector<double> path)const
 {
 	return payoff(path.back());

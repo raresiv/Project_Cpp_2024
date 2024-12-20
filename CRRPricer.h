@@ -13,7 +13,7 @@ private:
 	double down;
 	double interest_rate;
 	BinaryTree<double> tree;
-	
+	BinaryTree<bool> exercise_tree;
 
 	double S(int, int);
 
@@ -21,7 +21,9 @@ private:
 
 public:
 	CRRPricer(Option*, int, double, double, double, double);
-	void Compute();
+	CRRPricer(Option*, int, double, double, double);
+	bool getExercise(int, int);
+	void compute();
 	double get(int, int);
 	void set(int, int, double);
 	double operator()(bool=false);

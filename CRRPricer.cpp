@@ -4,9 +4,10 @@
 
 // Constructeur avec valeur par défaut pour arbre
 CRRPricer::CRRPricer(Option* opt, int N, double S, double U, double D, double R)
-	: option(opt), depth(N), asset_price(S), up(U), down(D), interest_rate(R) {
+	: option(opt), depth(N), asset_price(S), up(U), down(D), interest_rate(R)  {
 
 	tree = BinaryTree<double>(N);
+	exercise_tree = BinaryTree<bool>(N);
 
 	if (D < R && R < U) {
 		std::cout << "NO ARBITRAGE";
@@ -22,6 +23,35 @@ CRRPricer::CRRPricer(Option* opt, int N, double S, double U, double D, double R)
 	}
 }
 
+CRRPricer::CRRPricer(Option* opt, int N, double S, double R, double sigma)
+    : option(opt), depth(N), asset_price(S), interest_rate(R) {
+
+    // Calcul de la taille d'un pas de temps
+    double timestep = option->getExpiry() / N;
+
+    // Initialisation des paramètres U, D et R
+    up = exp((R + (sigma * sigma) / 2) * timestep + sigma * sqrt(timestep)) - 1;
+    down = exp((R + (sigma * sigma) / 2) * timestep - sigma * sqrt(timestep)) - 1;
+    interest_rate = exp(R * timestep) - 1;
+	
+
+    // Initialisation des arbres
+    tree = BinaryTree<double>(N);
+    exercise_tree = BinaryTree<bool>(N);
+
+    // Vérification de l'absence d'arbitrage
+    if (down < interest_rate && interest_rate < up) {
+        std::cout << "NO ARBITRAGE" << std::endl;
+    } else {
+        std::cout << "BE CAREFUL ARBITRAGE" << std::endl;
+    }
+
+    // Vérification que l'option n'est pas asiatique
+    if (opt->isAsianOption() == true) {
+        throw std::runtime_error("Asian options are not supported in CRRPricer.");
+    }
+}
+
 double CRRPricer::S(int n,int i)
 {
 	return asset_price* pow((1 + up), i)* pow(1 + down, n - i);
@@ -31,54 +61,54 @@ double CRRPricer::S(int n,int i)
 
 
 
-void CRRPricer::Compute(){	
+void CRRPricer::compute(){	
 
 
 	//Initialisation du prix avec les payoffs à maturité
 	for (int j = 0; j <= depth; j++) {
 		double payoff = option->payoff(S(depth, j));	//Payoff à maturité au noeud i qui vaut j
 		tree.setNode(depth , j, payoff);	//On remplit l'arbre à maturité
+		exercise_tree.setNode(depth, j, true);		//On remplit l'arbre de booléens à maturité en true
 	}
 
 	double q = (interest_rate - down) / (up - down);
-
 	//Double Boucle remplissage arbre
 	for (int n = depth; n >= 0; n--) {
-		for (int i = 0; i <= n; i++)	//les i vont de 0 à n spour chaque profondeur
+		for (int i = 0; i <= n; i++)	//les i vont de 0 à n pour chaque profondeur
 		{
 			
-			double price = (q * tree.getNode(n, i + 1) + (1 - q) * tree.getNode(n, i))/(1+interest_rate);	//Calcul du prix avec la profondeur supérieur
-			tree.setNode(n-1, i, price);	//On remplit la profondeur n pour chaque i
+			
+			if (option->isAmericanOption()){
+				double continuation_value = (q * tree.getNode(n, i + 1) + (1 - q) * tree.getNode(n, i))/(1+interest_rate);	//Calcul du prix avec la profondeur supérieur
+				double intrinsic_value = option->payoff(S(n-1,i));
+
+
+				double price = std::max(continuation_value, intrinsic_value);
+				tree.setNode(n-1, i, price);	//On remplit la profondeur n pour chaque i
+			
+				bool exercise = intrinsic_value >= continuation_value;
+            	exercise_tree.setNode(n, i, exercise);
+			} 
+			else{
+				double price = (q * tree.getNode(n, i + 1) + (1 - q) * tree.getNode(n, i))/(1+interest_rate);	//Calcul du prix avec la profondeur supérieur
+				tree.setNode(n-1, i, price);	//On remplit la profondeur n pour chaque i
+			}
+			
+
 		}
 	}
 		
 			
 }
 
+bool CRRPricer::getExercise(int i, int n){
+	return exercise_tree.getNode(i,n);
+}
+
 double CRRPricer::get(int n, int i) {
 	return tree.getNode(n, i);
 
 }
-
-
-//double CRRPricer::get(int n, int i) {
-//
-//	double current_payoff = option->payoff(S(depth,i));
-//	double temp1 = option->payoff(S(depth-1,i+1));//asset_price * pow((1 + up), i+1) * pow(1 + down, depth - i -1)
-//	double temp2 = current_payoff;
-//	double result;
-//	double q = (interest_rate - down) / (up - down);
-//	for (int j = depth - 1; j >= n; j--) {
-//		temp1 = (q * result + (1 - q) * temp2) / (1 + interest_rate);
-//		temp2 = (q * temp1 + (1 - q) * temp2) / (1 + interest_rate);
-//		result = (q * temp1 + (1 - q) * temp2) / (1 + interest_rate);
-//	}
-//
-//
-//	return result;
-//	
-//	
-//}
 
 double CRRPricer::factorial(double n)
 {
@@ -110,30 +140,15 @@ double CRRPricer::operator()(bool closed_form)
 		H = H / (pow(1 + interest_rate, depth));
 	}
 	else {
-		Compute();
+		compute();
 		H = tree.getNode(0, 0);
 	}
 
-//il faut utiliser le compute ici mais pas bien compris 
 
 	return H;
 }
 
 
-
-//double CRRPricer::get(int n, int i) {	//Version Alternative
-//	int compteur = 0;
-//	double q = (interest_rate - down) / (up - down);
-//	double result = option->payoff(asset_price * pow(1 + up, i + 1) * pow(1 + down, depth - i - 1));	//Prix à maturité au noeud i
-//	if (compteur == depth - i)
-//		return result;
-//	else {
-//		compteur += 1;	//Compteur augmenté de 1 pour atteindre la limite du dessus (total - i)
-//		return (q * get(n + 1, i + 1) + (1 - q) * get(n + 1, i))/(1+interest_rate);	
-//		//Formule utilisé car payoff dans la formule est utilisée juste pour maturité pas pour le reste (le reste on utilise les deux prix d'avant)
-//	}
-//	
-//}
 
 
 

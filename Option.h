@@ -13,6 +13,7 @@ protected:
 
 public:
 	virtual bool isAsianOption();
+	virtual bool isAmericanOption();
 	double getExpiry();
 	virtual double payoff(double)const=0;
 	Option(double);
