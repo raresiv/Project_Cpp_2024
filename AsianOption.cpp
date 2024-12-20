@@ -1,6 +1,13 @@
 #include "AsianOption.h"
 
-AsianOption::AsianOption(double e,double s,std::vector<double> t) : Option(e)
+//AsianOption::AsianOption(std::vector<double> t, double s) : Option(e)
+//{
+//	strike = s;
+//	timesteps = t;
+//	e = t.back();
+//}
+
+AsianOption::AsianOption(std::vector<double> t, double s) : Option(t.back())
 {
 	strike = s;
 	timesteps = t;

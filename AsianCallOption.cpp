@@ -19,5 +19,5 @@ optionType AsianCallOption::GetOptionType()const
 }
 
 
-AsianCallOption::AsianCallOption(double value,double s, const std::vector<double> vector) : AsianOption(value,s, vector) {};
+AsianCallOption::AsianCallOption(const std::vector<double> vector, double s) : AsianOption(vector, s) {};
 

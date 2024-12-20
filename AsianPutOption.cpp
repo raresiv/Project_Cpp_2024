@@ -18,6 +18,10 @@ optionType AsianPutOption::GetOptionType()const
 	return optionType::Put;
 }
 
-AsianPutOption::AsianPutOption(double value,double s, const std::vector<double> vector) : AsianOption(value,s,vector) {};
+
+
+AsianPutOption::AsianPutOption(const std::vector<double> vector, double s) : AsianOption(vector, s) {};
+
+//AsianPutOption::AsianPutOption(double value,double s, const std::vector<double> vector) : AsianOption(value,s,vector) {};
 
 
