@@ -14,6 +14,8 @@
 #include "AsianCallOption.h"
 #include "AsianPutOption.h"
 #include "AsianOption.h"
+#include "EuropeanDigitalCallOption.h"
+#include "EuropeanDigitalPutOption.h"
 
 #include <vector>
 #include "BlackScholesMCPricer.h"
@@ -21,6 +23,7 @@
 
 int main()
 {
+    /*
     std::cout << "Hello World!\n";
 
     std::cout << "test eloi";
@@ -111,7 +114,6 @@ int main()
     std::cout << "\nValeur au niveau 1, position 1 : " << valeur << std::endl;
     #pragma endregion
 
-
     #pragma region Partie VRAI TEST 1
     {
 
@@ -184,46 +186,10 @@ int main()
         std::cout << std::endl << "*********************************************************" << std::endl;
     }
 
-    //{
-
-    //    double S0(95.), K(100.), T(0.5), r(0.02), sigma(0.2);
-    //    EuropeanDigitalCallOption opt1(T, K);
-    //    EuropeanDigitalPutOption opt2(T, K);
-
-
-    //    std::cout << "European options 2" << std::endl << std::endl;
-
-    //    /*{
-    //        BlackScholesPricer pricer1(&opt1, S0, r, sigma);
-    //        std::cout << "BlackScholesPricer price=" << pricer1() << ", delta=" << pricer1.delta() << std::endl;
-
-    //        BlackScholesPricer pricer2(&opt2, S0, r, sigma);
-    //        std::cout << "BlackScholesPricer price=" << pricer2() << ", delta=" << pricer2.delta() << std::endl;
-    //        std::cout << std::endl;
-
-    //        int N(150);
-    //        double U = exp(sigma * sqrt(T / N)) - 1.0;
-    //        double D = exp(-sigma * sqrt(T / N)) - 1.0;
-    //        double R = exp(r * T / N) - 1.0;
-
-    //        CRRPricer crr_pricer1(&opt1, N, S0, U, D, R);
-    //        std::cout << "Calling CRR pricer with depth=" << N << std::endl;
-    //        std::cout << std::endl;
-    //        std::cout << "CRR pricer computed price=" << crr_pricer1() << std::endl;
-    //        std::cout << "CRR pricer explicit formula price=" << crr_pricer1(true) << std::endl;
-    //        std::cout << std::endl;
-
-    //        CRRPricer crr_pricer2(&opt2, N, S0, U, D, R);
-    //        std::cout << "Calling CRR pricer with depth=" << N << std::endl;
-    //        std::cout << std::endl;
-    //        std::cout << "CRR pricer computed price=" << crr_pricer2() << std::endl;
-    //        std::cout << "CRR pricer explicit formula price=" << crr_pricer2(true) << std::endl;
-    //    }*/
-    //    std::cout << std::endl << "*********************************************************" << std::endl;
-    //}
     #pragma endregion
 
     #pragma region Test Partie 3
+
     //
     //std::vector<double> path1 = { 100,105,110,115 };//moy 107.5
     //std::vector<double> path2 = { 90,85,70,60 };//moy 76.25
@@ -282,6 +248,98 @@ int main()
         delete pricer3;
         delete opt_ptr;
     }
+=======
+    {
+    std::vector<double> path1 = { 100,105,110,115 };//moy 107.5
+    std::vector<double> path2 = { 90,85,70,60 };//moy 76.25
+    double strikeAsian = 100;
+    double e = 1.0;
+    AsianCallOption callOptionA(e,strikeAsian, { 0.25, 0.5, 0.75, 1 });
+    AsianPutOption putOptionA(e,strikeAsian, { 0.25, 0.5, 0.75, 1 });
+    
+    // Calcul des payoffs pour chaque trajectoire 
+    double callPayoff1 = callOptionA.payoffPath(path1);
+    double callPayoff2 = callOptionA.payoffPath(path2);
+    double putPayoff1 = putOptionA.payoffPath(path1);
+    double putPayoff2 = putOptionA.payoffPath(path2); // Affichage des résultats 
+    std::cout << "Call Option Payoffs:\n"; 
+    std::cout << "Path 1: "<< callPayoff1 << "\n"; // Attendu : 7.5 
+    std::cout << "Path 2: "<< callPayoff2 << "\n"; // Attendu : 0 
+    std::cout << "\nPut Option Payoffs:\n"; 
+    std::cout << "Path 1: "<< putPayoff1 << "\n"; // Attendu : 0 
+    std::cout << "Path 2: "<< putPayoff2 << "\n"; // Attendu : 7.5 
+    // Test de l'obtention des timesteps 
+    std::cout << "\nTime steps for the options:\n"; 
+    for (double t : callOptionA.getTimeSteps())
+    { std::cout << t << " "; } 
+    std::cout << "\n"; for (double t : putOptionA.getTimeSteps())
+    { std::cout << t << " "; }
+    }
+    #pragma endregion
+
+    #pragma region Test Partie salle 17
+    {
+        std::cout << std::endl << "*********************************************************" << std::endl;
+        double S0(95.), K(100.), T(0.5), r(0.02), sigma(0.2);
+        EuropeanDigitalCallOption opt1(T, K);
+        EuropeanDigitalPutOption opt2(T, K);
+
+
+        std::cout << "European options 2" << std::endl << std::endl;
+
+        {
+            BlackScholesPricer pricer1(&opt1, S0, r, sigma);
+            std::cout << "BlackScholesPricer price=" << pricer1() << ", delta=" << pricer1.delta() << std::endl;
+
+            BlackScholesPricer pricer2(&opt2, S0, r, sigma);
+            std::cout << "BlackScholesPricer price=" << pricer2() << ", delta=" << pricer2.delta() << std::endl;
+
+        }
+        std::cout << std::endl << "*********************************************************" << std::endl;
+    }
+    #pragma endregion
+*/
+    #pragma region testExcel
+
+    // Paramètres pour l'option et le modèle Black-Scholes
+    double testExpiry = 5.0;           // Maturité (en années)
+    double testStrike = 101.0;         // Prix d'exercice
+    double assetPrice = 100.0;       // Prix de l'actif sous-jacent
+    double interestRate = 0.01;      // Taux sans risque (5%)
+    double volatility = 0.1;         // Volatilité (20%)
+
+    // Création d'une option Call avec un nom unique pour éviter les redéfinitions
+    CallOption testCallOption(testExpiry, testStrike);
+    
+    // Initialisation de BlackScholesPricer avec un pointeur vers l'option
+    BlackScholesPricer pricer1(&testCallOption, assetPrice, interestRate, volatility);
+    
+    // Calcul du prix de l'option avec le paramètre requis par operator()
+    double optionCall = pricer1();
+    std::cout << "Prix de l'option Call avec Black-Scholes : " << optionCall << std::endl;
+    
+    // Création d'une option Call avec un nom unique pour éviter les redéfinitions
+    PutOption testPutOption(testExpiry, testStrike);
+    
+    // Initialisation de BlackScholesPricer avec un pointeur vers l'option
+    BlackScholesPricer pricer2(&testPutOption, assetPrice, interestRate, volatility);
+    
+    // Calcul du prix de l'option avec le paramètre requis par operator()
+    double optionPut = pricer2();
+    std::cout << "Prix de l'option Put avec Black-Scholes : " << optionPut << std::endl;
+    
+    EuropeanDigitalCallOption opt1(testExpiry, testStrike);
+    EuropeanDigitalPutOption opt2(testExpiry, testStrike);
+
+
+    std::cout << "European options 2" << std::endl << std::endl;
+
+    BlackScholesPricer pricer3(&opt1, assetPrice, interestRate, volatility);
+    std::cout << "BlackScholesPricer digital call price=" << pricer3() << ", delta=" << pricer3.delta() << std::endl;
+
+    BlackScholesPricer pricer4(&opt2, assetPrice, interestRate, volatility);
+    std::cout << "BlackScholesPricer digital put price=" << pricer4() << ", delta=" << pricer4.delta() << std::endl;
+
 
     #pragma endregion
 
