@@ -340,6 +340,27 @@ int main()
     BlackScholesPricer pricer4(&opt2, assetPrice, interestRate, volatility);
     std::cout << "BlackScholesPricer digital put price=" << pricer4() << ", delta=" << pricer4.delta() << std::endl;
 
+    // CRR Params
+    double R = 0.01;
+    double U = 0.05;
+    double D = -0.045;
+    double N = 5;
+
+    CRRPricer crr_pricer_CallOption(&testCallOption, N, assetPrice, U, D, R);
+    std::cout << "CRR pricer computed price=" << crr_pricer_CallOption() << std::endl;
+    std::cout << std::endl;
+
+    CRRPricer crr_pricer_PutOption(&testPutOption, N, assetPrice, U, D, R);
+    std::cout << "CRR pricer computed price=" << crr_pricer_PutOption() << std::endl;
+    std::cout << std::endl;
+
+    CRRPricer crr_pricer_DigitalCallOption(&opt1, N, assetPrice, U, D, R);
+    std::cout << "CRR pricer computed price=" << crr_pricer_DigitalCallOption() << std::endl;
+    std::cout << std::endl;
+
+    CRRPricer crr_pricer_DigitalPutOption(&opt2, N, assetPrice, U, D, R);
+    std::cout << "CRR pricer computed price=" << crr_pricer_DigitalPutOption() << std::endl;
+    std::cout << std::endl;
 
     #pragma endregion
 
