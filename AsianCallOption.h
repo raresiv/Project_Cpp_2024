@@ -4,7 +4,7 @@ class AsianCallOption :
     public AsianOption
 {
 public:
-	AsianCallOption(double,double, std::vector<double>);
+	AsianCallOption(std::vector<double>,double);
 	double payoff(double)const;
 	optionType GetOptionType()const;
 	

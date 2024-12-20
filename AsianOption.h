@@ -16,7 +16,7 @@ private:
 public:
 	bool isAsianOption() override;
 	std::vector<double> getTimeSteps();
-	AsianOption(double,double,std::vector<double>);
+	AsianOption(std::vector<double>, double);
 	double payoffPath(std::vector<double>path);
 	double strike;
 };

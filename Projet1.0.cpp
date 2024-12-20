@@ -17,6 +17,10 @@
 #include "EuropeanDigitalCallOption.h"
 #include "EuropeanDigitalPutOption.h"
 
+#include <vector>
+#include "BlackScholesMCPricer.h"
+
+
 int main()
 {
     /*
@@ -185,6 +189,66 @@ int main()
     #pragma endregion
 
     #pragma region Test Partie 3
+
+    //
+    //std::vector<double> path1 = { 100,105,110,115 };//moy 107.5
+    //std::vector<double> path2 = { 90,85,70,60 };//moy 76.25
+    //double strikeAsian = 100;
+    //double e = 1.0;
+    //AsianCallOption callOptionA(e,strikeAsian, { 0.25, 0.5, 0.75, 1 });
+    //AsianPutOption putOptionA(e,strikeAsian, { 0.25, 0.5, 0.75, 1 });
+    //
+    //// Calcul des payoffs pour chaque trajectoire 
+    //double callPayoff1 = callOptionA.payoffPath(path1);
+    //double callPayoff2 = callOptionA.payoffPath(path2);
+    //double putPayoff1 = putOptionA.payoffPath(path1);
+    //double putPayoff2 = putOptionA.payoffPath(path2); // Affichage des résultats 
+    //std::cout << "Call Option Payoffs:\n"; 
+    //std::cout << "Path 1: "<< callPayoff1 << "\n"; // Attendu : 7.5 
+    //std::cout << "Path 2: "<< callPayoff2 << "\n"; // Attendu : 0 
+    //std::cout << "\nPut Option Payoffs:\n"; 
+    //std::cout << "Path 1: "<< putPayoff1 << "\n"; // Attendu : 0 
+    //std::cout << "Path 2: "<< putPayoff2 << "\n"; // Attendu : 7.5 
+    //// Test de l'obtention des timesteps 
+    //std::cout << "\nTime steps for the options:\n"; 
+    //for (double t : callOptionA.getTimeSteps())
+    //{ std::cout << t << " "; } 
+    //std::cout << "\n"; for (double t : putOptionA.getTimeSteps())
+    //{ std::cout << t << " "; }
+    //#pragma endregion
+
+
+    #pragma region Vrai Test partie 3
+
+    double S0(95.), K(100.), T(0.5), r(0.02), sigma(0.2);
+    std::vector<Option*> opt_ptrs;
+    opt_ptrs.push_back(new CallOption(T, K));
+    opt_ptrs.push_back(new PutOption(T, K));
+
+    std::vector<double> fixing_dates;
+    for (int i = 1; i <= 5; i++) {
+        fixing_dates.push_back(0.1 * i);
+    }
+    opt_ptrs.push_back(new AsianCallOption(fixing_dates, K));
+    opt_ptrs.push_back(new AsianPutOption(fixing_dates, K));
+
+    std::vector<double> ci;
+    BlackScholesMCPricer* pricer3;
+
+    for (auto& opt_ptr : opt_ptrs) {
+        pricer3 = new BlackScholesMCPricer(opt_ptr, S0, r, sigma);
+        do {
+            pricer3->generate(10000);
+            ci = pricer3->confidenceInterval();
+            std::cout << ci[1] << "  ";
+            std::cout << ci[0];
+       } while (ci[1] - ci[0] > 0.1);
+        std::cout << " nb samples: " << pricer3->getNbPaths() << std::endl;
+        std::cout << "price: " << (*pricer3)() << std::endl << std::endl;
+        delete pricer3;
+        delete opt_ptr;
+    }
+=======
     {
     std::vector<double> path1 = { 100,105,110,115 };//moy 107.5
     std::vector<double> path2 = { 90,85,70,60 };//moy 76.25
@@ -276,7 +340,9 @@ int main()
     BlackScholesPricer pricer4(&opt2, assetPrice, interestRate, volatility);
     std::cout << "BlackScholesPricer digital put price=" << pricer4() << ", delta=" << pricer4.delta() << std::endl;
 
+
     #pragma endregion
+
     return 0;
 }
 
