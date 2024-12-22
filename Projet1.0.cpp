@@ -190,7 +190,7 @@ int main()
     }
 
     #pragma endregion
-
+    */
     #pragma region Test Partie 3
 
     //
@@ -218,40 +218,55 @@ int main()
     //{ std::cout << t << " "; } 
     //std::cout << "\n"; for (double t : putOptionA.getTimeSteps())
     //{ std::cout << t << " "; }
-    //#pragma endregion
+    #pragma endregion
 
 
     #pragma region Vrai Test partie 3
 
-    double S0(95.), K(100.), T(0.5), r(0.02), sigma(0.2);
-    std::vector<Option*> opt_ptrs;
-    opt_ptrs.push_back(new CallOption(T, K));
-    opt_ptrs.push_back(new PutOption(T, K));
+        double S0(95.), K(100.), T(0.5), r(0.02), sigma(0.2);
+        std::vector<Option*> opt_ptrs;
+        opt_ptrs.push_back(new CallOption(T, K));
+        opt_ptrs.push_back(new PutOption(T, K));
 
-    std::vector<double> fixing_dates;
-    for (int i = 1; i <= 5; i++) {
-        fixing_dates.push_back(0.1 * i);
-    }
-    opt_ptrs.push_back(new AsianCallOption(fixing_dates, K));
-    opt_ptrs.push_back(new AsianPutOption(fixing_dates, K));
+        std::vector<double> fixing_dates;
+        for (int i = 1; i <= 5; i++) {
+            fixing_dates.push_back(0.1 * i);
+        }
+        opt_ptrs.push_back(new AsianCallOption(fixing_dates, K));
+        opt_ptrs.push_back(new AsianPutOption(fixing_dates, K));
 
-    std::vector<double> ci;
-    BlackScholesMCPricer* pricer3;
+        std::vector<double> ci;
+        BlackScholesMCPricer* pricer3;
+        BlackScholesPricer* pricer4;
 
-    for (auto& opt_ptr : opt_ptrs) {
-        pricer3 = new BlackScholesMCPricer(opt_ptr, S0, r, sigma);
-        do {
-            pricer3->generate(10000);
+        /*for (auto& opt_ptr : opt_ptrs) {
+            pricer3 = new BlackScholesMCPricer(opt_ptr, S0, r, sigma);
+            pricer4 = new BlackScholesPricer(opt_ptr, S0, r, sigma);
+            pricer3->generate(100000);
             ci = pricer3->confidenceInterval();
-            std::cout << ci[1] << "  ";
-            std::cout << ci[0];
-       } while (ci[1] - ci[0] > 0.1);
-        std::cout << " nb samples: " << pricer3->getNbPaths() << std::endl;
-        std::cout << "price: " << (*pricer3)() << std::endl << std::endl;
-        delete pricer3;
-        delete opt_ptr;
-    }
-=======
+            std::cout << " Normal Pricer: " << std::endl;
+            std::cout << "price: " << (*pricer4)() << std::endl << std::endl;
+            std::cout << " MC Pricer: " << std::endl;
+            std::cout << " nb samples: " << pricer3->getNbPaths() << std::endl;
+            std::cout << "price: " << (*pricer3)() << std::endl << std::endl;
+            delete pricer3;
+            delete pricer4;
+            delete opt_ptr;
+        }*/
+
+        for (auto& opt_ptr : opt_ptrs) {
+            pricer3 = new BlackScholesMCPricer(opt_ptr, S0, r, sigma);
+            do {
+                pricer3->generate(10);
+                ci = pricer3->confidenceInterval();
+            } while (ci[1] - ci[0] > 1e-2);
+            std::cout << "nb samples: " << pricer3->getNbPaths() << std::endl;
+            std::cout << "price: " << (*pricer3)() << std::endl << std::endl;
+            delete pricer3;
+            delete opt_ptr;
+        }
+   
+/*
     {
     std::vector<double> path1 = { 100,105,110,115 };//moy 107.5
     std::vector<double> path2 = { 90,85,70,60 };//moy 76.25
@@ -279,7 +294,7 @@ int main()
     { std::cout << t << " "; }
     }
     #pragma endregion
-
+    
     #pragma region Test Partie salle 17
     {
         std::cout << std::endl << "*********************************************************" << std::endl;
@@ -301,7 +316,7 @@ int main()
         std::cout << std::endl << "*********************************************************" << std::endl;
     }
     #pragma endregion
-*/
+
     #pragma region testExcel
 
     // Paramètres pour l'option et le modèle Black-Scholes
@@ -366,6 +381,7 @@ int main()
     std::cout << std::endl;
 
     #pragma endregion
+
     #pragma region testCoiffeur
 
     double S0(100), K(101), T(5), r(0.01), sigma(0.1);
@@ -380,7 +396,7 @@ int main()
     CRRPricer* pricer;
 
     for (auto& opt_ptr : opt_ptrs) {
-        pricer = new CRRPricer(opt_ptr, 5, S0,r, sigma);
+        pricer = new CRRPricer(opt_ptr, 5, S0, 0.05 , -0.045 ,r);
     
 
         pricer->compute();
@@ -391,7 +407,7 @@ int main()
 
     }
     #pragma endregion
-
+*/
 
     return 0;
 }
