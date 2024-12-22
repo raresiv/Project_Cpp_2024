@@ -27,11 +27,12 @@ void BlackScholesMCPricer::generate(int nb_paths) {
 	for (int i = 0; i < nb_paths; i++) {
 		s = initial_price;
 		if (option->isAsianOption() == true) {
-			double Z = MT::rand_norm(); // random generation using MT
+			
 			AsianOption* asian_option = dynamic_cast<AsianOption*>(option);
 			std::vector<double> timesteps = asian_option->getTimeSteps();
 			std::vector<double> S_vect;
 			for (int j = 0;j < timesteps.size(); j++) {
+				double Z = MT::rand_norm(); // random generation using MT
 				if (j == 0) {
 					s = s * std::exp(const_exposant * timesteps[0] + volatility * sqrt(timesteps[0]) * Z);
 				}

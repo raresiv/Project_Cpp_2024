@@ -223,7 +223,7 @@ int main()
 
     #pragma region Vrai Test partie 3
 
-        double S0(95.), K(100.), T(0.5), r(0.02), sigma(0.2);
+        /*double S0(95.), K(100.), T(0.5), r(0.02), sigma(0.2);
         std::vector<Option*> opt_ptrs;
         opt_ptrs.push_back(new CallOption(T, K));
         opt_ptrs.push_back(new PutOption(T, K));
@@ -239,7 +239,7 @@ int main()
         BlackScholesMCPricer* pricer3;
         BlackScholesPricer* pricer4;
 
-        /*for (auto& opt_ptr : opt_ptrs) {
+        for (auto& opt_ptr : opt_ptrs) {
             pricer3 = new BlackScholesMCPricer(opt_ptr, S0, r, sigma);
             pricer4 = new BlackScholesPricer(opt_ptr, S0, r, sigma);
             pricer3->generate(100000);
@@ -254,7 +254,7 @@ int main()
             delete opt_ptr;
         }*/
 
-        for (auto& opt_ptr : opt_ptrs) {
+        /*for (auto& opt_ptr : opt_ptrs) {
             pricer3 = new BlackScholesMCPricer(opt_ptr, S0, r, sigma);
             do {
                 pricer3->generate(10);
@@ -264,7 +264,39 @@ int main()
             std::cout << "price: " << (*pricer3)() << std::endl << std::endl;
             delete pricer3;
             delete opt_ptr;
+        }*/
+        
+#pragma region test excel mcpricer
+        
+        double S0(100.), K(101.), T(5.), r(0.01), sigma(0.1);
+        std::vector<Option*> opt_ptrs;
+        opt_ptrs.push_back(new CallOption(T, K));
+        opt_ptrs.push_back(new PutOption(T, K));
+        opt_ptrs.push_back(new EuropeanDigitalCallOption(T, K));
+        opt_ptrs.push_back(new EuropeanDigitalPutOption(T, K));
+
+        std::vector<double> fixing_dates;
+        for (int i = 1; i <= 50; i++) {
+            fixing_dates.push_back(0.1 * i);
         }
+        opt_ptrs.push_back(new AsianCallOption(fixing_dates, K));
+        opt_ptrs.push_back(new AsianPutOption(fixing_dates, K));
+
+        std::vector<double> ci;
+        BlackScholesMCPricer* pricer3;
+
+        for (auto& opt_ptr : opt_ptrs) {
+            pricer3 = new BlackScholesMCPricer(opt_ptr, S0, r, sigma);
+            pricer3->generate(1000000);
+            ci = pricer3->confidenceInterval();
+            std::cout << " MC Pricer: " << std::endl;
+            std::cout << " nb samples: " << pricer3->getNbPaths() << std::endl;
+            std::cout << "price: " << (*pricer3)() << std::endl << std::endl;
+            delete pricer3;
+            delete opt_ptr;
+        }
+#pragma endregion
+
    
 /*
     {
