@@ -1,7 +1,5 @@
 #include "AmericanPutOption.h"
-
 AmericanPutOption::AmericanPutOption(double e, double s) :AmericanOption(e, s) {};
-
 double AmericanPutOption::payoff(double z) const
 {
 	double payoff = 0;

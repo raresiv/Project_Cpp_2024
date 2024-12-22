@@ -16,6 +16,7 @@
 #include "AsianOption.h"
 #include "EuropeanDigitalCallOption.h"
 #include "EuropeanDigitalPutOption.h"
+#include "AmericanOption.h"
 #include "AmericanCallOption.h"
 #include "AmericanPutOption.h"
 

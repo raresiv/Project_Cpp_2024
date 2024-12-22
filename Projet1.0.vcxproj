@@ -127,6 +127,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AmericanCallOption.cpp" />
+    <ClCompile Include="AmericanOption.cpp" />
+    <ClCompile Include="AmericanPutOption.cpp" />
     <ClCompile Include="AsianCallOption.cpp" />
     <ClCompile Include="AsianOption.cpp" />
     <ClCompile Include="AsianPutOption.cpp" />
@@ -146,6 +149,9 @@
     <ClCompile Include="PutOption.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AmericanCallOption.h" />
+    <ClInclude Include="AmericanOption.h" />
+    <ClInclude Include="AmericanPutOption.h" />
     <ClInclude Include="AsianCallOption.h" />
     <ClInclude Include="AsianOption.h" />
     <ClInclude Include="AsianPutOption.h" />

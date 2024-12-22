@@ -7,7 +7,7 @@ double normalCDF(double x)
 }
 
 double normalPDF(double x) {
-    return exp(-0.5 * x * x) / sqrt(2 * M_PI);
+    return exp(-0.5 * x * x) / sqrt(2 * 3.1415);
 }
 
 double BlackScholesPricer::delta()

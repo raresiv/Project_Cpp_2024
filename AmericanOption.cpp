@@ -1,5 +1,4 @@
 #include "AmericanOption.h"
-
 AmericanOption::AmericanOption(double e, double s) : Option(e)
 {
 	if (s > 0)
@@ -11,9 +10,7 @@ AmericanOption::AmericanOption(double e, double s) : Option(e)
 		_strike = 0;
 		cout << "strike negatif";
 	}
-
 };
-
-bool AmericanOption::isAmericanOption(){
-    return true;
+bool AmericanOption::isAmericanOption() {
+	return true;
 }
