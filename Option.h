@@ -6,7 +6,7 @@ using namespace std;
 #include <vector>
 #include <stdexcept>
 
-class Option
+class Option	//the mother class of all our option classes
 {
 protected:
 	double _expiry;

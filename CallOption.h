@@ -6,6 +6,6 @@ class CallOption :
 {
 public:
     CallOption(double, double);
-    double payoff(double)const override;
+    double payoff(double)const override;    //it will be overriden
     optionType GetOptionType()const override;
 };

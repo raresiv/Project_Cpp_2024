@@ -9,21 +9,21 @@ template <typename T>
 class BinaryTree
 {
 public:
-	BinaryTree() : _depth(0) {
+	BinaryTree() : _depth(0) { //constructor initializing an empty tree
 
 	}
 
-	BinaryTree(int d) : _depth(d) {
-		resizeTree();
+	BinaryTree(int d) : _depth(d) { //constructor initializing a tree of depth d
+		resizeTree(); // we rezise the tree at the good size
 	}
-	void setDepth(int n) {
+	void setDepth(int n) {	//function that changes the size of the tree to the size n
 		_depth = n;
 		resizeTree();
 	}
 
-	void setNode(int x, int y, T t) { // a is the level and b the depth
-		if (_tree.size() != 0) {
-			if (x >= 0 && x <= _tree.size()) {
+	void setNode(int x, int y, T t) { // x is the depht and y the level
+		if (_tree.size() != 0) { // if the tree is non null (exists)
+			if (x >= 0 && x <= _tree.size()) { // and if x is in the interval
 				if (y >= 0 && y < _tree[x].size()) {
 					_tree[x][y] = t;
 				}
@@ -34,9 +34,9 @@ public:
 	T getNode(int a, int b) { // a is the level and b the depth
 		T t{};
 		if (_depth != 0) {
-			if (a >= 0 && a <= _depth) {
-				if (b >= 0 && b < _tree[a].size()) {
-					t = _tree[a][b];
+			if (a >= 0 && a <= _depth) {	// if the tree is non null (exists)
+				if (b >= 0 && b < _tree[a].size()) { // and if a is in the interval
+					t = _tree[a][b];	// we get the value of the node
 				}
 			}
 		}
@@ -45,12 +45,12 @@ public:
 	}
 
 	void display() {//display the tree
-		if (_tree.size() != 0) {
-			for (int i = 0; i < _depth; i++) {
-				for (int j = 0; j < _tree[i].size(); j++) {
+		if (_tree.size() != 0) { //if the tree exists
+			for (int i = 0; i < _depth; i++) { //we visit each depth
+				for (int j = 0; j < _tree[i].size(); j++) {	// and each 'level'
 					std::cout << _tree[i][j] << " ";
 				}
-				std::cout << "\n";
+				std::cout << "\n";	// next row at the end of a depht
 			}
 		}
 	}

@@ -2,7 +2,7 @@
 
 EuropeanDigitalOption::EuropeanDigitalOption(double e, double s) : Option(e)
 {
-	if (s > 0)
+	if (s > 0)	//we check that the strike price is positive
 	{
 		_strike = s;
 	}

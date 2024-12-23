@@ -8,7 +8,7 @@ class EuropeanDigitalPutOption :
 {
 public:
     EuropeanDigitalPutOption(double, double);
-    double payoff(double)const override;
+    double payoff(double)const override;    //the function will be overriden
     optionType GetOptionType()const override;
 };
 

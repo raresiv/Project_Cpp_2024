@@ -4,7 +4,7 @@ EuropeanVanillaOption::EuropeanVanillaOption(double e, double s) : Option(e)
 {
 	if (s > 0)
 	{
-		_strike = s;
+		_strike = s;	//we check that the strike price is positive
 	}
 	else
 	{
