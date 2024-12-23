@@ -44,7 +44,7 @@ public:
 		return t;
 	}
 
-	void display() {//display the tree
+	void display() {//display the tree on the console
 		if (_tree.size() != 0) { //if the tree exists
 			for (int i = 0; i < _depth; i++) { //we visit each depth
 				for (int j = 0; j < _tree[i].size(); j++) {	// and each 'level'
@@ -59,7 +59,7 @@ protected:
 	int _depth;
 	std::vector<std::vector<T>> _tree;
 
-	void resizeTree() {
+	void resizeTree() { //function that resize the tree
 		_tree.resize(_depth+1);
 		for (int i = 0; i < _depth+1; ++i) {
 			_tree[i].resize(i + 1);
