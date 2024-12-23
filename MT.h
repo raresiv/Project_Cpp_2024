@@ -6,11 +6,11 @@ class MT
 private:
 
 	std::mt19937 rng;
-	MT(); // Le constructeur pour éviter de instanciate directly
-	~MT() = default; // Le dstructeur
-	// Pour éviter de copier et d'assigner
-	MT(const MT&) = delete;
-	MT& operator=(const MT&) = delete;
+	MT(); // constructor to prevent direct instantiation
+	~MT() = default; // destructeur
+	// To prevent copying and assigning 
+	MT(const MT&) = delete; // delete the copy constructor 
+	MT& operator=(const MT&) = delete; // delete copy assignment operator
 
 public :
 
