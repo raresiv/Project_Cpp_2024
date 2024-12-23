@@ -9,8 +9,8 @@ double AmericanCallOption::payoff(double z) const
 	}
 	return payoff;
 }
-/*
+
 optionType AmericanCallOption::GetOptionType() const
 {
 	return optionType::Call;
-}*/
+}

@@ -268,7 +268,7 @@ int main()
         
 #pragma region test excel mcpricer
         
-        double S0(100.), K(101.), T(5.), r(0.01), sigma(0.1);
+        /*double S0(100.), K(101.), T(5.), r(0.01), sigma(0.1);
         std::vector<Option*> opt_ptrs;
         opt_ptrs.push_back(new CallOption(T, K));
         opt_ptrs.push_back(new PutOption(T, K));
@@ -294,7 +294,7 @@ int main()
             std::cout << "price: " << (*pricer3)() << std::endl << std::endl;
             delete pricer3;
             delete opt_ptr;
-        }
+        }*/
 #pragma endregion
 
    
@@ -348,7 +348,7 @@ int main()
         std::cout << std::endl << "*********************************************************" << std::endl;
     }
     #pragma endregion
-
+    */
     #pragma region testExcel
 
     // Paramètres pour l'option et le modèle Black-Scholes
@@ -389,7 +389,7 @@ int main()
 
     BlackScholesPricer pricer4(&opt2, assetPrice, interestRate, volatility);
     std::cout << "BlackScholesPricer digital put price=" << pricer4() << ", delta=" << pricer4.delta() << std::endl;
-
+    /*
     // CRR Params
     double R = 0.01;
     double U = 0.05;
@@ -413,7 +413,7 @@ int main()
     std::cout << std::endl;
 
     #pragma endregion
-
+*/
     #pragma region testCoiffeur
 
     double S0(100), K(101), T(5), r(0.01), sigma(0.1);
@@ -439,7 +439,7 @@ int main()
 
     }
     #pragma endregion
-*/
+
 
     return 0;
 }

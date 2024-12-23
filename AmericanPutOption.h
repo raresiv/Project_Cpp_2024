@@ -7,5 +7,5 @@ class AmericanPutOption :
 public:
     AmericanPutOption(double, double);
     double payoff(double)const override;
-    //optionType GetOptionType()const override;
+    optionType GetOptionType()const override;
 };

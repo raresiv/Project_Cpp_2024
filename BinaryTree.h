@@ -2,7 +2,9 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
+//We created all our functions in the .h file because the template class will not function otherwise
+//The compiler will not have access to them otherwise
+//The template is used so that the nodes of our tree can take values of any type T
 template <typename T>
 class BinaryTree
 {
@@ -19,18 +21,17 @@ public:
 		resizeTree();
 	}
 
-	void setNode(int x, int y, T t) { // a est le niveau et b la 'profondeur'
+	void setNode(int x, int y, T t) { // a is the level and b the depth
 		if (_tree.size() != 0) {
 			if (x >= 0 && x <= _tree.size()) {
 				if (y >= 0 && y < _tree[x].size()) {
 					_tree[x][y] = t;
 				}
 			}
-			//mess d'erreur ?
 		}
 	}
 
-	T getNode(int a, int b) {//comme le fonction d'avant, a est le niveau et b la profondeur
+	T getNode(int a, int b) { // a is the level and b the depth
 		T t{};
 		if (_depth != 0) {
 			if (a >= 0 && a <= _depth) {
@@ -43,7 +44,7 @@ public:
 		return t;
 	}
 
-	void display() {
+	void display() {//display the tree
 		if (_tree.size() != 0) {
 			for (int i = 0; i < _depth; i++) {
 				for (int j = 0; j < _tree[i].size(); j++) {
@@ -53,39 +54,6 @@ public:
 			}
 		}
 	}
-
-	
-	//void display() {
-	//	if (_tree.size() != 0) {
-	//		for (int i = 0; i < _depth; i++) {
-	//			// Imprime l'espacement initial pour centrer les niveaux
-	//			for (int j = 0; j < (_depth - i - 1); j++) {
-	//				std::cout << "   "; // Espacement � gauche
-	//			}
-
-	//			// Imprime les valeurs dans le niveau actuel
-	//			for (int j = 0; j < _tree[i].size(); j++) {
-	//				std::cout << _tree[i][j] << "    "; // Valeurs avec espacement
-	//			}
-
-	//			std::cout << "\n";
-
-	//			// Affiche les branches pour le niveau actuel
-	//			if (i < _depth - 1) {
-	//				for (int j = 0; j < (_depth - i-1); j++) {
-	//					std::cout << "   ";
-	//					// Espacement � gauche
-	//				}
-	//				for (int j = 0; j < _tree[i].size(); j++) {
-	//					std::cout << "/ \\  "; // Affiche les branches
-	//					
-	//				}
-	//				std::cout << "\n";
-	//			}
-	//		}
-	//	}
-	//}
-
 
 protected:
 	int _depth;

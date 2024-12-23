@@ -9,9 +9,8 @@ double AmericanPutOption::payoff(double z) const
 	}
 	return payoff;
 }
-/*
+
 optionType AmericanPutOption::GetOptionType() const
 {
 	return optionType::Put;
 }
-*/

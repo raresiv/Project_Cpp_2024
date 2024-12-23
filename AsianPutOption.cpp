@@ -23,6 +23,4 @@ optionType AsianPutOption::GetOptionType()const
 
 AsianPutOption::AsianPutOption(const std::vector<double> vector, double s) : AsianOption(vector, s) {}; // constructor
 
-//AsianPutOption::AsianPutOption(double value,double s, const std::vector<double> vector) : AsianOption(value,s,vector) {};
-
 

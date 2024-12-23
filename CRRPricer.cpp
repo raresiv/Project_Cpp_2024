@@ -34,19 +34,17 @@ CRRPricer::CRRPricer(Option* opt, int N, double S, double R, double sigma)
     down = exp((R + (sigma * sigma) / 2) * timestep - sigma * sqrt(timestep)) - 1;
     interest_rate = exp(R * timestep) - 1;
 	
-
     // Initialisation des arbres
     tree = BinaryTree<double>(N);
     exercise_tree = BinaryTree<bool>(N);
 
     // Vérification de l'absence d'arbitrage
-    if (down < interest_rate && interest_rate < up) {
+    if (down < interest_rate && interest_rate < up){
         std::cout << "NO ARBITRAGE" << std::endl;
     } else {
         std::cout << "BE CAREFUL ARBITRAGE" << std::endl;
     }
 
-    // Vérification que l'option n'est pas asiatique
     if (opt->isAsianOption() == true) {
         throw std::runtime_error("Asian options are not supported in CRRPricer.");
     }

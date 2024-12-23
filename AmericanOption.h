@@ -10,7 +10,7 @@ class AmericanOption :
 public:
     AmericanOption(double, double);
     bool isAmericanOption() override;
-    //virtual optionType GetOptionType()const=0;
+    virtual optionType GetOptionType()const=0;
 protected:
     double _strike;
 };

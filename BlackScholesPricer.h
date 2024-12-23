@@ -8,19 +8,14 @@
 class BlackScholesPricer
 {
 private:
-    Option* option;
+    Option* option; // We use a pointer in order use the pricer on different types of options
     double asset_price;
     double interest_rate;
     double volatility;
 
 public:
-
-    BlackScholesPricer(Option* opt, double a_p, double i_r, double vol) : 
-        option(opt), asset_price(a_p), interest_rate(i_r), volatility(vol) {}
-
+    BlackScholesPricer(Option* opt, double a_p, double i_r, double vol);
     double operator()();
-
     double delta();
-
 };
 

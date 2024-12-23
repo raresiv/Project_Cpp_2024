@@ -1,12 +1,5 @@
 #include "AsianOption.h"
 
-//AsianOption::AsianOption(std::vector<double> t, double s) : Option(e)
-//{
-//	strike = s;
-//	timesteps = t;
-//	e = t.back();
-//}
-
 AsianOption::AsianOption(std::vector<double> t, double s) : Option(t.back()) // constructor
 { // where the expiry is the last element of our timestep
 	strike = s;
