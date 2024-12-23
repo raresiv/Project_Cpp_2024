@@ -14,3 +14,7 @@ AmericanOption::AmericanOption(double e, double s) : Option(e)
 bool AmericanOption::isAmericanOption() {
 	return true;
 }
+
+double AmericanOption::GetStrike()const {
+	return _strike;
+}

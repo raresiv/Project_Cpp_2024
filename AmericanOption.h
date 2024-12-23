@@ -11,6 +11,7 @@ public:
     AmericanOption(double, double);
     bool isAmericanOption() override;
     virtual optionType GetOptionType()const=0;
+    double GetStrike()const;
 protected:
     double _strike;
 };

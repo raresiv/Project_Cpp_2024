@@ -1,5 +1,6 @@
 #pragma once
 #include "Option.h"
+#include "AmericanCallOption.h"
 #include "BinaryTree.h"
 #include <iostream>
 
